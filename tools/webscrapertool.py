@@ -2,6 +2,7 @@ from tools.base import BaseTool
 import requests
 from bs4 import BeautifulSoup, Comment
 import re
+from security import safe_requests
 
 class WebScraperTool(BaseTool):
     name = "webscrapertool"
@@ -32,7 +33,7 @@ class WebScraperTool(BaseTool):
                                'AppleWebKit/537.36 (KHTML, like Gecko) '
                                'Chrome/91.0.4472.124 Safari/537.36')
             }
-            response = requests.get(url, headers=headers, timeout=10)
+            response = safe_requests.get(url, headers=headers, timeout=10)
             response.raise_for_status()
 
             soup = BeautifulSoup(response.text, 'html.parser')
