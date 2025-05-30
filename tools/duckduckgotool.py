@@ -2,6 +2,7 @@ from tools.base import BaseTool
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import quote_plus
+from security import safe_requests
 
 class DuckduckgoTool(BaseTool):
     name = "duckduckgotool"
@@ -36,7 +37,7 @@ class DuckduckgoTool(BaseTool):
         }
 
         try:
-            response = requests.get(url, headers=headers)
+            response = safe_requests.get(url, headers=headers)
             response.raise_for_status()
             soup = BeautifulSoup(response.text, 'html.parser')
             
