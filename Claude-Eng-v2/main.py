@@ -1104,7 +1104,7 @@ def stop_process(process_id):
 
 def run_shell_command(command):
     try:
-        result = subprocess.run(command, shell=True, check=True, text=True, capture_output=True)
+        result = subprocess.run(command, shell=False, check=True, text=True, capture_output=True)
         return {
             "stdout": result.stdout,
             "stderr": result.stderr,
