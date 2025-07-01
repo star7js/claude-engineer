@@ -3,6 +3,7 @@ import subprocess
 from typing import List, Optional
 
 from tools.base import BaseTool
+from security import safe_command
 
 
 class UVPackageManager(BaseTool):
@@ -79,8 +80,7 @@ class UVPackageManager(BaseTool):
 
     def _run_uv_command(self, args: List[str]) -> str:
         try:
-            result = subprocess.run(
-                ["uv"] + args,
+            result = safe_command.run(subprocess.run, ["uv"] + args,
                 capture_output=True,
                 text=True,
                 check=True

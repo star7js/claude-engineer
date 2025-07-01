@@ -2,6 +2,7 @@ from tools.base import BaseTool
 import subprocess
 from typing import List
 import json
+from security import safe_command
 
 class LintingTool(BaseTool):
     name = "lintingtool"
@@ -99,8 +100,7 @@ class LintingTool(BaseTool):
         cmd.extend(paths)
 
         try:
-            result = subprocess.run(
-                cmd,
+            result = safe_command.run(subprocess.run, cmd,
                 text=True,
                 capture_output=True,
                 check=False

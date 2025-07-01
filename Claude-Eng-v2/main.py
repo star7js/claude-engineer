@@ -32,6 +32,7 @@ from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn
 import subprocess
 import shutil
 from typing import AsyncIterable
+from security import safe_command
 
 # Configure logging
 logging.basicConfig(level=logging.ERROR, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -1104,7 +1105,7 @@ def stop_process(process_id):
 
 def run_shell_command(command):
     try:
-        result = subprocess.run(command, shell=True, check=True, text=True, capture_output=True)
+        result = safe_command.run(subprocess.run, command, shell=True, check=True, text=True, capture_output=True)
         return {
             "stdout": result.stdout,
             "stderr": result.stderr,
